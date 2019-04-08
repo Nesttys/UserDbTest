@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Data.Model;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -7,11 +8,15 @@ using System.Threading.Tasks;
 
 namespace Data
 {
-    class UserInitializer : CreateDatabaseIfNotExists<UserContext>
+    public class Initializer : DropCreateDatabaseIfModelChanges<UserContext>
     {
-        public UserInitializer(UserContext context)
+        protected override void Seed(UserContext context)
         {
-            base.Seed(context);
+            context.Users.AddRange(DataManager.users);
+            context.UserInRoles.AddRange(DataManager.userinroles);
+            context.Roles.AddRange(DataManager.roles);
+
         }
     }
 }
+

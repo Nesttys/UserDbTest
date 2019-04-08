@@ -5,11 +5,11 @@ using System.Data.Entity;
 
 namespace Data
 {
-    class UserContext : DbContext
+    public class UserContext : DbContext
     {
         public UserContext()
         : base("DbConnection")
-        { }
+        { Database.SetInitializer(new CreateDatabaseIfNotExists<UserContext>()); }
 
         public DbSet<User> Users { get; set; }
         public DbSet<Role> Roles { get; set; }
